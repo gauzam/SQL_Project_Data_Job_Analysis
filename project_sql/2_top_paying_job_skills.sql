@@ -43,3 +43,31 @@ Python follows closely with a bold count of 7.
 Tableau is also highly sought after, with a bold count of 6.
 Other skills like R, Snowflake, Pandas, and Excel show varying degrees of demand.
 */
+
+-- same query using subquery
+
+SELECT  
+    skills_job_dim.job_id,
+    skills_dim.skills
+FROM 
+    skills_dim
+JOIN
+    skills_job_dim ON skills_dim.skill_id = skills_job_dim.skill_id
+WHERE
+    skills_job_dim.job_id IN (
+        SELECT
+        jobs.job_id as job_id
+        FROM
+        job_postings_fact jobs
+        JOIN company_dim company ON jobs.company_id = company.company_id
+        WHERE
+        job_title_short = 'Data Analyst'
+        AND
+        salary_year_avg IS NOT NULL
+        AND
+        job_work_from_home = TRUE
+        ORDER BY
+        salary_year_avg DESC
+        LIMIT 10
+    )
+
