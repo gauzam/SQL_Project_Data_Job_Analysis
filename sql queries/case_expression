@@ -25,3 +25,9 @@ WHERE
     job_title_short = 'Data Analyst'
 GROUP BY
     location_category;
+
+Select DISTINCT job_title_short
+from job_postings_fact;
+
+Select DISTINCT (job_title_short)
+from job_postings_fact;
