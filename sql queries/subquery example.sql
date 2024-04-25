@@ -30,5 +30,3 @@ WHERE
 GROUP BY
     companies.company_id
 ORDER BY company_id;
-
-
